@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar id="ejb-jar_ID" version="2.1" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+	<display-name>EJB</display-name>
+	<enterprise-beans>
+		<session>
+			<ejb-name>ReservCompSv</ejb-name>
+			<home>by.epam.ejb.home.ReservCompSvHome</home>
+			<remote>by.epam.ejb.remote.ReservCompSv</remote>
+			<ejb-class>by.epam.ejb.bean.ReservCompSvBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Bean</transaction-type>
+		</session>
+		
+		<session>
+			<ejb-name>CustomerSv</ejb-name>
+			<home>by.epam.ejb.home.CustomerSvHome</home>
+			<remote>by.epam.ejb.remote.CustomerSv</remote>
+			<ejb-class>by.epam.ejb.bean.CustomerSvBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Bean</transaction-type>
+		</session>
+		
+		<session>
+			<ejb-name>FareFamilySv</ejb-name>
+			<home>by.epam.ejb.home.FareFamilySvHome</home>
+			<remote>by.epam.ejb.remote.FareFamilySv</remote>
+			<ejb-class>by.epam.ejb.bean.FareFamilySvBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Bean</transaction-type>
+		</session>
+		
+		<session>
+			<ejb-name>UserSv</ejb-name>
+			<home>by.epam.ejb.home.UserSvHome</home>
+			<remote>by.epam.ejb.remote.UserSv</remote>
+			<ejb-class>by.epam.ejb.bean.UserSvBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Bean</transaction-type>
+		</session>
+	</enterprise-beans>
+</ejb-jar>
