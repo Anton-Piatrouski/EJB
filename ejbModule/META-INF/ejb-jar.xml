@@ -9,6 +9,11 @@
 			<ejb-class>by.epam.ejb.bean.ReservCompSvBean</ejb-class>
 			<session-type>Stateless</session-type>
 			<transaction-type>Bean</transaction-type>
+			<env-entry>
+				<env-entry-name>xmlLocation</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>C:/Users/Reservation.xml</env-entry-value>
+			</env-entry>
 		</session>
 		
 		<session>
@@ -18,6 +23,11 @@
 			<ejb-class>by.epam.ejb.bean.CustomerSvBean</ejb-class>
 			<session-type>Stateless</session-type>
 			<transaction-type>Bean</transaction-type>
+			<env-entry>
+				<env-entry-name>xmlLocation</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>C:/Users/Reservation.xml</env-entry-value>
+			</env-entry>
 		</session>
 		
 		<session>
@@ -27,6 +37,11 @@
 			<ejb-class>by.epam.ejb.bean.FareFamilySvBean</ejb-class>
 			<session-type>Stateless</session-type>
 			<transaction-type>Bean</transaction-type>
+			<env-entry>
+				<env-entry-name>xmlLocation</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>C:/Users/Reservation.xml</env-entry-value>
+			</env-entry>
 		</session>
 		
 		<session>

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -30,20 +32,26 @@ public class ReservationImplXml implements ReservationDAO {
 	}
 	
 	public Reservation getReservation() throws DaoException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory. newInstance();
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder docBuilder = factory.newDocumentBuilder();
-			Document doc = docBuilder.parse("C:/Users/Reservation.xml");
+			
+			InitialContext ic = new InitialContext();
+			String uri = (String) ic.lookup("java:comp/env/xmlLocation");
+			
+			Document doc = docBuilder.parse(uri);
 			
 			Element reservationElement = doc.getDocumentElement();
 			buildReservation(reservationElement);
 			
+			return reservation;
+			
 		} catch (ParserConfigurationException e) {
 			throw new DaoException("Parser configuration error", e);
-		} catch (IOException | SAXException e) {
+			
+		} catch (IOException | SAXException | NamingException e) {
 			throw new DaoException("File processing error", e);
 		}
-		return reservation;
 	}
 	
 	private void buildReservation(Element reservationElement) {
