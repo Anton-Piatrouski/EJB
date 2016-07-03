@@ -14,6 +14,11 @@
 				<env-entry-type>java.lang.String</env-entry-type>
 				<env-entry-value>C:/Users/Reservation.xml</env-entry-value>
 			</env-entry>
+			<env-entry>
+				<env-entry-name>implClass</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>by.epam.model.impl.ReservationImplXml</env-entry-value>
+			</env-entry>
 		</session>
 		
 		<session>
@@ -28,6 +33,11 @@
 				<env-entry-type>java.lang.String</env-entry-type>
 				<env-entry-value>C:/Users/Reservation.xml</env-entry-value>
 			</env-entry>
+			<env-entry>
+				<env-entry-name>implClass</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>by.epam.model.impl.ReservationImplXml</env-entry-value>
+			</env-entry>
 		</session>
 		
 		<session>
@@ -41,6 +51,11 @@
 				<env-entry-name>xmlLocation</env-entry-name>
 				<env-entry-type>java.lang.String</env-entry-type>
 				<env-entry-value>C:/Users/Reservation.xml</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>implClass</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>by.epam.model.impl.ReservationImplXml</env-entry-value>
 			</env-entry>
 		</session>
 		
