@@ -1,12 +1,13 @@
 package by.epam.ejb.test;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import by.epam.ejb.bean.CustomerSvBean;
 import by.epam.exception.custom.DaoException;
 import by.epam.model.bean.Customer;
 import by.epam.model.bean.Reservation;
@@ -14,12 +15,15 @@ import by.epam.model.iface.ReservationDAO;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class CustomerSvBeanTest {
+
 	@Mock
-	private Reservation reservMock;
-	@Mock
-	private ReservationDAO daoMock;
+	private ReservationDAO reservDao;
+	
+	@InjectMocks
+	private CustomerSvBean customerSv;
 	
 	@Before
 	public void setUp() {
@@ -27,30 +31,26 @@ public class CustomerSvBeanTest {
 	}
 	
 	@Test
-	public void retrieveCustomer_expected_return_Customer() {
-		// Arrange
-		Customer expCustomer = new Customer();
+	public void retrieveCustomer_expected_call_DAO() throws DaoException {
 		// Act
-		Mockito.when(reservMock.getCustomer()).thenReturn(expCustomer);
-		Customer actCustomer = reservMock.getCustomer();
+		Mockito.when(reservDao.getReservation()).thenReturn(new Reservation());
+		customerSv.retrieveCustomer();
 		// Assert
-		Mockito.verify(reservMock).getCustomer();
-		Assert.assertThat(actCustomer, is(equalTo(expCustomer)));
+		Mockito.verify(reservDao).getReservation();
 	}
 	
-	@Test(expected=DaoException.class)
-	public void retrieveCustomer_DaoException_expected_return_empty_Customer() throws DaoException {
+	@Test
+	public void retrieveCustomer_expected_return_Customer() throws DaoException {
 		// Arrange
+		Reservation reserv = Mockito.mock(Reservation.class);
 		Customer expCustomer = new Customer();
 		// Act
-		Mockito.when(daoMock.getReservation()).thenThrow(new DaoException("Expected DaoException"));
-		Reservation reservation = daoMock.getReservation();
+		Mockito.when(reservDao.getReservation()).thenReturn(reserv);
+		Mockito.when(reserv.getCustomer()).thenReturn(expCustomer);
 		
-		Mockito.when(reservation.getCustomer()).thenReturn(expCustomer);
-		Customer actCustomer = reservation.getCustomer();
+		Customer actCustomer = customerSv.retrieveCustomer();
 		// Assert
-		Mockito.verify(daoMock).getReservation();
-		Mockito.verify(reservation).getCustomer();
-		Assert.assertThat(actCustomer, is(equalTo(expCustomer)));
+		assertThat(actCustomer, is(equalTo(expCustomer)));
 	}
+
 }

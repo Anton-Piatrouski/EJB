@@ -1,12 +1,13 @@
 package by.epam.ejb.test;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import by.epam.ejb.bean.ReservCompSvBean;
 import by.epam.exception.custom.DaoException;
 import by.epam.model.bean.ResComponent;
 import by.epam.model.bean.Reservation;
@@ -14,15 +15,18 @@ import by.epam.model.iface.ReservationDAO;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReservCompSvBeanTest {
+
 	@Mock
-	private Reservation reservMock;
-	@Mock
-	private ReservationDAO daoMock;
+	private ReservationDAO reservDao;
+	
+	@InjectMocks
+	private ReservCompSvBean reservCompSv;
 	
 	@Before
 	public void setUp() {
@@ -30,30 +34,26 @@ public class ReservCompSvBeanTest {
 	}
 	
 	@Test
-	public void retrieveResComponents_expected_return_ResComponents() {
-		// Arrange
-		List<ResComponent> expResComponents = new ArrayList<>();
+	public void retrieveComponents_expected_call_DAO() throws DaoException {
 		// Act
-		Mockito.when(reservMock.getResComponents()).thenReturn(expResComponents);
-		List<ResComponent> actResComponents = reservMock.getResComponents();
+		Mockito.when(reservDao.getReservation()).thenReturn(new Reservation());
+		reservCompSv.retrieveComponents();
 		// Assert
-		Mockito.verify(reservMock).getResComponents();
-		Assert.assertThat(actResComponents, is(equalTo(expResComponents)));
+		Mockito.verify(reservDao).getReservation();
 	}
 	
-	@Test(expected=DaoException.class)
-	public void retrieveResComponents_DaoException_expected_return_empty_ResComponents() throws DaoException {
+	@Test
+	public void retrieveComponents_expected_return_ResComponents() throws DaoException {
 		// Arrange
+		Reservation reserv = Mockito.mock(Reservation.class);
 		List<ResComponent> expResComponents = new ArrayList<>();
 		// Act
-		Mockito.when(daoMock.getReservation()).thenThrow(new DaoException("Expected DaoException"));
-		Reservation reservation = daoMock.getReservation();
+		Mockito.when(reservDao.getReservation()).thenReturn(reserv);
+		Mockito.when(reserv.getResComponents()).thenReturn(expResComponents);
 		
-		Mockito.when(reservation.getResComponents()).thenReturn(expResComponents);
-		List<ResComponent> actResComponents = reservation.getResComponents();
+		List<ResComponent> actResComponents = reservCompSv.retrieveComponents();
 		// Assert
-		Mockito.verify(daoMock).getReservation();
-		Mockito.verify(reservation).getResComponents();
-		Assert.assertThat(actResComponents, is(equalTo(expResComponents)));
+		assertThat(actResComponents, is(equalTo(expResComponents)));
 	}
+
 }
