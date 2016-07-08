@@ -14,11 +14,12 @@ import by.epam.model.iface.ReservationDAO;
 
 public class FareFamilySvBean implements SessionBean {
 	private static final long serialVersionUID = 1L;
+	
+	private ReservationDAO reservDao;
 
 	public FareFamily retrieveFareFamily() {
 		FareFamily fareFamily = null;
 		try {
-			ReservationDAO reservDao = ReservationImplFactory.getImplementation();
 			Reservation reserv = reservDao.getReservation();
 			fareFamily = reserv.getFareFamily();
 		} catch (DaoException e) {
@@ -29,7 +30,11 @@ public class FareFamilySvBean implements SessionBean {
 	}
 	
 	public void ejbCreate() throws EJBException {
-		
+		try {
+			reservDao = ReservationImplFactory.getImplementation();
+		} catch (DaoException e) {
+			throw new EJBException(e);
+		}
 	}
 
 	@Override

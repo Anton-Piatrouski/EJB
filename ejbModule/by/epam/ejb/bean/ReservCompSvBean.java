@@ -16,11 +16,12 @@ import by.epam.model.iface.ReservationDAO;
 
 public class ReservCompSvBean implements SessionBean {
 	private static final long serialVersionUID = 1L;
+	
+	private ReservationDAO reservDao;
 
 	public List<ResComponent> retrieveComponents() {
 		List<ResComponent> components = null;
 		try {
-			ReservationDAO reservDao = ReservationImplFactory.getImplementation();
 			Reservation reserv = reservDao.getReservation();
 			components = reserv.getResComponents();
 		} catch (DaoException e) {
@@ -31,7 +32,11 @@ public class ReservCompSvBean implements SessionBean {
 	}
 	
 	public void ejbCreate() throws EJBException {
-		
+		try {
+			reservDao = ReservationImplFactory.getImplementation();
+		} catch (DaoException e) {
+			throw new EJBException(e);
+		}
 	}
 
 	@Override

@@ -13,11 +13,12 @@ import by.epam.model.iface.UserDAO;
 
 public class UserSvBean implements SessionBean {
 	private static final long serialVersionUID = 1L;
+	
+	private UserDAO userDao;
 
 	public User retrieveUser(String name, String password) {
 		User user = null;
 		try {
-			UserDAO userDao = UserImplFactory.getImplementation();
 			user = userDao.getUser(name, password);
 		} catch (DaoException e) {
 			System.out.println(e.getMessage());
@@ -26,7 +27,7 @@ public class UserSvBean implements SessionBean {
 	}
 	
 	public void ejbCreate() throws EJBException {
-		
+		userDao = UserImplFactory.getImplementation();
 	}
 
 	@Override
